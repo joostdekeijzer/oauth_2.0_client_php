@@ -66,6 +66,7 @@ class Configuration
         $this->_authorizeEndpoint = $authorizeEndpoint;
         $this->_accessTokenEndpoint = $accessTokenEndpoint;
         $this->_httpBearerToken = $httpBearerToken;
+        $this->_queryParameterToken = $queryParameterToken;
     }
 
     /**
