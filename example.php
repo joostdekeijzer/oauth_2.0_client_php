@@ -13,7 +13,9 @@ $client = new OAuth2\Client(
 // configuration of service
 $configuration = new OAuth2\Service\Configuration(
         'AUTHORIZE_ENDPOINT',
-        'ACCESS_TOKEN_ENDPOINT');
+        'ACCESS_TOKEN_ENDPOINT',
+        'HTTP_BEARER_TOKEN',
+        'QUERY_PARAMETER_TOKEN');
 
 // storage class for access token, just implement OAuth2\DataStore interface for
 // your own implementation
