@@ -219,17 +219,18 @@ class Service
 
         switch ($authorizationMethod) {
             case Service\Configuration::AUTHORIZATION_METHOD_HEADER:
-                $additionalHeaders = array_merge(array('Authorization: OAuth ' . $token->getAccessToken()), $additionalHeaders);
+                $additionalHeaders = array_merge(array('Authorization: ' . $this->_configuration->getHttpBearerToken() . ' ' . $token->getAccessToken()), $additionalHeaders);
                 break;
             case Service\Configuration::AUTHORIZATION_METHOD_ALTERNATIVE:
+                $queryParameter = $this->_configuration->getQueryParameterToken();
                 if ($method !== 'GET') {
                     if (is_array($postBody)) {
-                        $postBody['oauth_token'] = $token->getAccessToken();
+                        $postBody[$queryParameter] = $token->getAccessToken();
                     } else {
-                        $postBody .= '&oauth_token=' . urlencode($token->getAccessToken());
+                        $postBody .= '&' . $queryParameter . '=' . urlencode($token->getAccessToken());
                     }
                 } else {
-                    $uriParameters['oauth_token'] = $token->getAccessToken();
+                    $uriParameters[$queryParameter] = $token->getAccessToken();
                 }
                 break;
             default:

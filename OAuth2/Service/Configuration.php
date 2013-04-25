@@ -46,15 +46,27 @@ class Configuration
     /**
      * @var string
      */
+    private $_httpBearerToken;
+
+    /**
+     * @var string
+     */
+    private $_queryParameterToken;
+
+    /**
+     * @var string
+     */
     private $_authorizationMethod = self::AUTHORIZATION_METHOD_HEADER;
 
     /**
      * @param string $authorizeEndpoint
      * @param string $accessTokenEndpoint
      */
-    public function __construct($authorizeEndpoint, $accessTokenEndpoint) {
+    public function __construct($authorizeEndpoint, $accessTokenEndpoint, $httpBearerToken = 'OAuth', $queryParameterToken = 'oauth_token') {
         $this->_authorizeEndpoint = $authorizeEndpoint;
         $this->_accessTokenEndpoint = $accessTokenEndpoint;
+        $this->_httpBearerToken = $httpBearerToken;
+        $this->_queryParameterToken = $queryParameterToken;
     }
 
     /**
@@ -69,6 +81,20 @@ class Configuration
      */
     public function getAccessTokenEndpoint() {
         return $this->_accessTokenEndpoint;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHttpBearerToken() {
+        return $this->_httpBearerToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQueryParameterToken() {
+        return $this->_queryParameterToken;
     }
 
     /**
