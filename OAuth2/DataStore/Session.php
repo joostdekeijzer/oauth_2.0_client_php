@@ -53,6 +53,20 @@ class Session implements DataStore
         $_SESSION['oauth2_token'] = $token;
     }
 
+    /**
+     * @param string $state
+     */
+    function storeState($state) {
+        $_SESSION['oauth2_state'] = $state;
+    }
+
+    /**
+     * @return string
+     */
+    function retrieveState() {
+        return isset($_SESSION['oauth2_state']) ? $_SESSION['oauth2_state'] : '';
+    }
+
     public function  __destruct() {
         session_write_close();
     }

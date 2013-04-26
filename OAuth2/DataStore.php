@@ -39,4 +39,14 @@ interface DataStore
      * @return \OAuth2\Token
      */
     function retrieveAccessToken();
+
+    /**
+     * @param string $state
+     */
+    function storeState($state);
+
+    /**
+     * @return string
+     */
+    function retrieveState();
 }

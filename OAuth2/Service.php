@@ -70,11 +70,14 @@ class Service
      * redirect to authorize endpoint of service
      */
     public function authorize(array $userParameters = array()) {
+       $state = md5(microtime() . rand());
+       $this->_dataStore->storeState($state);
        $parameters = array_merge($userParameters, array(
             'type' => 'web_server',
             'client_id' => $this->_client->getClientKey(),
             'redirect_uri' => $this->_client->getCallbackUrl(),
             'response_type' => 'code',
+            'state' => $state,
         ));
 
         if ($this->_scope) {
@@ -99,6 +102,15 @@ class Service
                 throw new Exception('could not retrieve code out of callback request and no code given');
             }
             $code = $_GET['code'];
+        }
+
+        $state = $this->_dataStore->retrieveState();
+        // TODO: force_state configuration?
+        if(isset($_GET['state'])) {
+            $this->_dataStore->storeState(''); // clear state
+            if($state !== $_GET['state']) {
+                throw new Exception('state of callback request does not match original state');
+            }
         }
 
         $parameters = array(
