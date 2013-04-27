@@ -95,6 +95,7 @@ class Service
      * get access token of from service, has to be called after successful authorization
      *
      * @param string $code optional, if no code given method tries to get it out of $_GET
+     * @return boolean
      */
     public function getAccessToken($code = null) {
         if (! $code) {
@@ -130,7 +131,7 @@ class Service
         //$http->setDebug(true);
         $http->execute();
 
-        $this->_parseAccessTokenResponse($http);
+        return (false !== $this->_parseAccessTokenResponse($http));
     }
 
     /**
