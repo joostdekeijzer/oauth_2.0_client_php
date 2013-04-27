@@ -216,7 +216,7 @@ class Service
      * @param array $uriParameters optional
      * @param mixed $postBody optional, can be string or array
      * @param array $additionalHeaders
-     * @return string
+     * @return mixed
      */
     public function callApiEndpoint($endpoint, $method = 'GET', array $uriParameters = array(), $postBody = null, array $additionalHeaders = array()) {
         $token = $this->_dataStore->retrieveAccessToken();
@@ -267,6 +267,17 @@ class Service
         $http = new HttpClient($endpoint, $method, $parameters, $additionalHeaders);
         $http->execute();
 
-        return $http->getResponse();
+        $headers = $http->getHeaders();
+        $type = 'text';
+        if (isset($headers['Content-Type']) && strpos($headers['Content-Type'], 'application/json') !== false) {
+            $type = 'json';
+        }
+
+        $response = $http->getResponse();
+        if( 'json' == $type ) {
+            $response = json_decode($response, true);
+        }
+
+        return $response;
     }
 }
