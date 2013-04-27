@@ -107,7 +107,7 @@ class HttpClient
         $parts = explode($firstDelimiter, $string);
         foreach ($parts as $part) {
             $partsPart = explode($secondDelimiter, $part);
-            $resultArray[$partsPart[0]] = isset($partsPart[1]) ? trim($partsPart[1]) : '';
+            $resultArray[trim($partsPart[0])] = isset($partsPart[1]) ? trim($partsPart[1]) : '';
         }
         return $resultArray;
     }
