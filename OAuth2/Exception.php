@@ -28,4 +28,4 @@
 
 namespace OAuth2;
 
-class Exception extends \Exception {}
+class Exception extends \MWException {}
