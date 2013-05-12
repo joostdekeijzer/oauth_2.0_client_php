@@ -172,6 +172,17 @@ class HttpClient
     }
 
     /**
+     * @return int
+     */
+    public function getHttpResponseCode() {
+        if( isset( $this->_info['http_code'] ) ) {
+            return $this->_info['http_code'];
+        } else {
+            false;
+        }
+    }
+
+    /**
      * @param boolean $debug
      */
     public function setDebug($debug) {
