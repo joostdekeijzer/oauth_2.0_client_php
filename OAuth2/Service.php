@@ -267,6 +267,10 @@ class Service
         $http = new HttpClient($endpoint, $method, $parameters, $additionalHeaders);
         $http->execute();
 
+        if( 199 > $http->getHttpResponseCode() || 300 < $http->getHttpResponseCode() ) {
+            throw new Exception("Unexpected http response code from server");
+        }
+
         $headers = $http->getHeaders();
         $type = 'text';
         if (isset($headers['Content-Type']) && strpos($headers['Content-Type'], 'application/json') !== false) {
